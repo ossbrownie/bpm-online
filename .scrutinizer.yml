@@ -1,0 +1,12 @@
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --bootstrap ./tests/bootstrap.php ./tests --coverage-clover build/logs/clover.xml'
+                coverage:
+                    file: 'build/logs/clover.xml'
+                    format: 'clover'
+checks:
+    php:
+        code_rating: true
+        duplication: true
