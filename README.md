@@ -7,7 +7,8 @@ Bpm’online
 [![License](https://poser.pugx.org/ossbrownie/bpm-online/license)](https://packagist.org/packages/ossbrownie/bpm-online)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/ossbrownie/bpm-online/badge.svg?branch=master)](https://coveralls.io/github/ossbrownie/bpm-online?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://travis-ci.org/ossbrownie/bpm-online.svg?branch=master)](https://travis-ci.org/ossbrownie/bpm-online)
 
 API access to a single marketing management platform 'CRM-system bpm’online'
