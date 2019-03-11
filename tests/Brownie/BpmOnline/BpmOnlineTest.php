@@ -33,4 +33,9 @@ class BpmOnlineTest extends TestCase
     {
         $this->bpmOnline = null;
     }
+
+    public function testStub()
+    {
+        $this->assertEquals('test', 'test');
+    }
 }
