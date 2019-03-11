@@ -89,9 +89,9 @@ class Contract extends StorageArray
         'operationType' => null,
 
         /**
-         * The endpoint for the operation.
+         * Determination of the contract to fulfill the request in the API.
          */
-        'contractQuery' => null,
+        'contractType' => null,
     ];
 
     /**

@@ -107,10 +107,10 @@ class ColumnFilter extends StorageArray
         ])) {
             throw new ValidateException('Invalid filter compare arguments.');
         }
-        if ((self::FILTER_COMPARE_FILTER == $this->getFilterType()) && (2 == count($this->getColumnExpressions()))) {
+        if ((self::FILTER_COMPARE_FILTER == $this->getFilterType()) && (2 != count($this->getColumnExpressions()))) {
             throw new ValidateException('Invalid count column expressions.');
         }
-        if ((self::FILTER_BETWEEN == $this->getFilterType()) && (3 == count($this->getColumnExpressions()))) {
+        if ((self::FILTER_BETWEEN == $this->getFilterType()) && (3 != count($this->getColumnExpressions()))) {
             throw new ValidateException('Invalid count column expressions.');
         }
     }

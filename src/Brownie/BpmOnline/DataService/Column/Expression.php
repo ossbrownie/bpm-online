@@ -14,6 +14,15 @@ class Expression extends StorageArray
 
     protected $keyName = null;
 
+    /**
+     * List of supported fields.
+     *
+     * @var array
+     */
+    protected $fields = [
+        'value' => null,
+    ];
+
     public function getKeyName()
     {
         return $this->keyName;
@@ -21,6 +30,6 @@ class Expression extends StorageArray
 
     public function getValue()
     {
-        return $this->toArray();
+        return parent::getValue();
     }
 }

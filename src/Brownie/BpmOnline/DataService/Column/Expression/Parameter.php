@@ -14,7 +14,6 @@ use Brownie\BpmOnline\DataService\Column\Expression;
 /**
  * The Parameter class is defined in the Terrasoft.Nui.ServiceModel.DataContract namespace.
  *
- * @method mixed        getValue()                          Returns an object containing the column value.
  * @method bool         getArrayValue()                     Returns an array of column values.
  * @method bool         setArrayValue(array $values)        Sets an array of values column.
  * @method bool         getShouldSkipConvertion()           Returns the flag to skip the cast process.
@@ -91,20 +90,11 @@ class Parameter extends Expression
      *
      * @throws ValidateException
      */
-    public function toArray()
+    public function getValue()
     {
-        if (is_string($this->getValue()) || is_numeric($this->getValue())) {
-            $value = $this->getValue();
-            $valueType = self::TEXT;
-        } elseif (is_array($this->getValue()) && (2 == count($this->getValue()))) {
-            $value = $this->getValue()[0];
-            $valueType = $this->getValue()[1];
-        } else {
-            throw new ValidateException('Invalid arguments.');
-        }
         $data = [
-            'DataValueType' => $valueType,
-            'Value' => $value,
+            'DataValueType' => $this->getDataValueType(),
+            'Value' => parent::getValue(),
         ];
         if (!empty($this->getArrayValue()) && is_array($this->getArrayValue())) {
             $data['ArrayValue'] = $this->getArrayValue();

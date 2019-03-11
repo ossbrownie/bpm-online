@@ -14,7 +14,7 @@ class ColumnExpression
 
     public function __construct(Expression $_ = null)
     {
-        $this->columnExpressions[] = func_get_args();
+        $this->columnExpressions = func_get_args();
     }
 
     public function toArray()

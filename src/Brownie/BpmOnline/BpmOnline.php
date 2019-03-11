@@ -87,33 +87,5 @@ class BpmOnline extends StorageArray
             }
         }
 
-        var_export($this->getAuthentication());
-        die();
-
-        $request = new Request();
-        $request
-            ->setMethod(Request::HTTP_METHOD_POST)
-            ->setUrl(
-                $this->getConfig()->getApiUrlScheme() . '://' .
-                $this->getConfig()->getUserDomain() . '.' . $this->getConfig()->getApiDomain() .
-                '/' . $this->getConfigurationNumber() . '/dataservice/' . $this->getDataFormat() .
-                '/reply/' . $contract->getContractQuery()
-            )
-            ->setBodyFormat(Request::FORMAT_APPLICATION_JSON)
-            ->setBody(json_encode($contract->toArray()))
-            /*
-            ->disableSSLValidation()
-            ->addHeader(new Header(array(
-                'name' => 'test3',
-                'value' => 'Simple3'
-            )))
-            ->addCookie(new Cookie(array(
-                'name' => 'cookieName2',
-                'value' => 'cookieValue2',
-            )))
-            */
-            ->setTimeOut($this->getConfig()->getApiConnectTimeOut());
-
-        $response = $this->getHttpClient()->request($request);
     }
 }

@@ -78,7 +78,7 @@ class InsertContract extends Contract
      */
     public function validate()
     {
-        if (empty($this->dictionary)) {
+        if ((1 != $this->getOperationType()) || empty($this->dictionary)) {
             throw new ValidateException('Invalid contract arguments.');
         }
     }

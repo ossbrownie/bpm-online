@@ -3,7 +3,7 @@
     "description": "API access to a single marketing management platform 'CRM-system bpm’online'",
     "license": "MIT",
     "type": "library",
-    "keywords": ["brownie", "bpm", "bpm-online", "bpmonline"],
+    "keywords": ["brownie", "bpm", "bpm-online", "bpmonline", "bpm’online", "bpm'online", "terrasoft"],
     "homepage": "https://github.com/ossbrownie/bpm-online",
     "version": "0.0.1",
     "authors": [
@@ -21,8 +21,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "6.5.14",
-        "Phpdocumentor/reflection-docblock": "~3.0.2",
-        "satooshi/php-coveralls": "^1.0"
+        "Phpdocumentor/reflection-docblock": "~4.3.0",
+        "satooshi/php-coveralls": "^2.1.0"
     },
     "autoload": {
         "psr-4": {

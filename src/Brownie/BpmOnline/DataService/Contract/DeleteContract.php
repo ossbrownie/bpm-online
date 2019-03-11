@@ -76,7 +76,7 @@ class DeleteContract extends Contract
      */
     public function validate()
     {
-        if (empty($this->filter)) {
+        if ((3 != $this->getOperationType()) || empty($this->filter)) {
             throw new ValidateException('Invalid contract arguments.');
         }
         $this->filter->validate();

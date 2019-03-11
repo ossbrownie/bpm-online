@@ -10,6 +10,7 @@ namespace Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnExpression;
 use Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnFilter;
+use Brownie\BpmOnline\Exception\ValidateException;
 
 /**
  * SelectContract Data Contract.
@@ -174,7 +175,7 @@ class SelectContract extends Contract
      * Returns the current object.
      *
      * @param string            $name               Column name.
-     * @param mixed             $orderDirection     The sort order.
+     * @param string            $orderDirection     The sort order.
      * @param int               $orderPosition      Column position.
      * @param string            $caption            Headline.
      * @param ColumnExpression  $columnExpression   Query expression to the schema object.
@@ -256,5 +257,8 @@ class SelectContract extends Contract
      */
     public function validate()
     {
+        if (0 != $this->getOperationType()) {
+            throw new ValidateException('Invalid contract arguments.');
+        }
     }
 }

@@ -109,7 +109,7 @@ class UpdateContract extends Contract
      */
     public function validate()
     {
-        if (empty($this->filter)) {
+        if ((2 != $this->getOperationType()) || empty($this->filter)) {
             throw new ValidateException('Invalid contract arguments.');
         }
         $this->filter->validate();
