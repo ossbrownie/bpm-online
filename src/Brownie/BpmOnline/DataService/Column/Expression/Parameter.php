@@ -12,7 +12,7 @@ use Brownie\BpmOnline\DataService\Column\Expression;
 /**
  * Specifies the value that will be contained in the added column.
  *
- * @method []|mixed     getArrayValue()                     Returns an array of column values.
+ * @method mixed[]      getArrayValue()                     Returns an array of column values.
  * @method bool         setArrayValue(array $values)        Sets an array of values column.
  * @method bool         getShouldSkipConvertion()           Returns the flag to skip the cast process.
  * @method Parameter    setShouldSkipConvertion($isSkip)    Sets the flag to skip the cast process.
