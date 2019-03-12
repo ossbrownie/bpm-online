@@ -35,7 +35,7 @@ class ColumnFilterTest extends TestCase
 
         $this->assertEquals([
             'FilterType' => 1,
-            'ComparisonType' => 0,
+            'ComparisonType' => 3,
             'LeftExpression' => [
                 'key1' => 'value1',
             ],
