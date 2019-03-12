@@ -182,8 +182,13 @@ class SelectContract extends Contract
      *
      * @return self
      */
-    public function addColumn($name, $orderDirection, $orderPosition, $caption, ColumnExpression $columnExpression)
-    {
+    public function addColumn(
+        $name,
+        $orderDirection,
+        $orderPosition,
+        $caption,
+        ColumnExpression $columnExpression
+    ) {
         $this->columns[$name] = [
             'OrderDirection' => $orderDirection,
             'OrderPosition' => $orderPosition,

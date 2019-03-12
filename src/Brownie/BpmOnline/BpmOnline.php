@@ -8,6 +8,7 @@
 namespace Brownie\BpmOnline;
 
 use Brownie\BpmOnline\Exception\AuthenticationException;
+use Brownie\HttpClient\Header\Header;
 use Brownie\HttpClient\HTTPClient;
 use Brownie\BpmOnline\DataService\Contract;
 use Brownie\HttpClient\Request;
@@ -22,6 +23,8 @@ use Brownie\Util\StorageArray;
  * @method int          getConfigurationNumber()
  * @method BpmOnline    setDataFormat($dataFormat)
  * @method string       getDataFormat()
+ * @method BpmOnline    setAuthentication(array $authenticationData)
+ * @method array        getAuthentication()
  */
 class BpmOnline extends StorageArray
 {
@@ -49,16 +52,21 @@ class BpmOnline extends StorageArray
 
     private function authentication()
     {
-        $request = new Request();
-        $request
+        $request = $this
+            ->getHttpClient()
+            ->createRequest()
             ->setMethod(Request::HTTP_METHOD_POST)
             ->setUrl(
                 $this->getConfig()->getApiUrlScheme() . '://' .
-                //$this->getConfig()->getUserDomain() . '.' .
-                'www.' . $this->getConfig()->getApiDomain() .
+                $this->getConfig()->getUserDomain() . '.' .
+                $this->getConfig()->getApiDomain() .
                 '/ServiceModel/AuthService.svc/Login'
             )
             ->setBodyFormat(Request::FORMAT_APPLICATION_JSON)
+            ->addHeader(new Header([
+                'name' => 'Content-Type',
+                'value' => Request::FORMAT_APPLICATION_JSON,
+            ]))
             ->setBody(json_encode([
                 'UserName' => $this->getConfig()->getUserName(),
                 'UserPassword' => $this->getConfig()->getUserPassword(),
@@ -67,14 +75,23 @@ class BpmOnline extends StorageArray
 
         $response = $this->getHttpClient()->request($request);
 
-        if (200 == $response->getHttpCode()) {
-            $this->setAuthentication([
-                'cookie' => $response->getHttpCookieList()->toArray()
-            ]);
-            return true;
+        if (200 != $response->getHttpCode()) {
+            return false;
         }
 
-        return false;
+        $jsonResponse = json_decode($response->getBody(), true);
+
+        if ((JSON_ERROR_NONE != json_last_error()) || (0 != $jsonResponse['Code']))
+        {
+            return false;
+        }
+
+        $this->setAuthentication([
+            '.aspxauth' => $response->getHttpCookieList()->get('.aspxauth'),
+            'bpmcsrf' => $response->getHttpCookieList()->get('bpmcsrf'),
+        ]);
+
+        return true;
     }
 
     public function getResponse(Contract $contract)
@@ -87,5 +104,39 @@ class BpmOnline extends StorageArray
             }
         }
 
+        $request =
+            $this
+                ->getHttpClient()
+                ->createRequest()
+                ->setMethod(Request::HTTP_METHOD_POST)
+                ->setUrl(
+                    $this->getConfig()->getApiUrlScheme() . '://' .
+                    $this->getConfig()->getUserDomain() . '.' . $this->getConfig()->getApiDomain() .
+                    '/' . $this->getConfigurationNumber() . '/dataservice/' . $this->getDataFormat() .
+                    '/reply/' . $contract->getContractType()
+                )
+                ->setBodyFormat(Request::FORMAT_APPLICATION_JSON)
+                ->addHeader(new Header([
+                    'name' => 'Content-Type',
+                    'value' => Request::FORMAT_APPLICATION_JSON,
+                ]))
+                ->setBody(json_encode($contract->toArray()))
+                ->addCookie($this->getAuthentication()['.aspxauth'])
+                ->addCookie($this->getAuthentication()['bpmcsrf'])
+                ->addHeader(
+                    $this
+                        ->getHttpClient()
+                        ->createHeader('Authorization', 'Cookie')
+                )
+                ->addHeader(
+                    $this
+                        ->getHttpClient()
+                        ->createHeader('BPMCSRF', $this->getAuthentication()['bpmcsrf']->getValue())
+                )
+                ->setTimeOut($this->getConfig()->getApiConnectTimeOut());
+
+        $response = $this->getHttpClient()->request($request);
+
+        return $response->getBody();
     }
 }

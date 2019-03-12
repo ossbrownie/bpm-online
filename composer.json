@@ -16,13 +16,13 @@
         "php": ">=7.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "ossbrownie/http-client": "~0.0.4",
+        "ossbrownie/http-client": "~0.0.5",
         "ossbrownie/util": "~0.0.5"
     },
     "require-dev": {
         "phpunit/phpunit": "6.5.14",
-        "Phpdocumentor/reflection-docblock": "~4.3.0",
-        "satooshi/php-coveralls": "^2.1.0"
+        "phpdocumentor/reflection-docblock": "~4.3.0",
+        "php-coveralls/php-coveralls": "^2.1.0"
     },
     "autoload": {
         "psr-4": {

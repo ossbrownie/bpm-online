@@ -10,48 +10,121 @@ namespace Brownie\BpmOnline\DataService\Column;
 use Brownie\BpmOnline\Exception\ValidateException;
 use Brownie\Util\StorageArray;
 
+/**
+ * Filter for contracts.
+ *
+ * @method int      getFilterType()             Returns the type of filter.
+ * @method int      getComparisonType()         Returns the type of comparison.
+ * @method array    getColumnExpressions()      Returns column expressions.
+ */
 class ColumnFilter extends StorageArray
 {
 
+    /* FILTER */
+
+    /**
+     * Filter type not defined.
+     */
     const FILTER_NONE = 0;
 
+    /**
+     * Comparison filter.
+     */
     const FILTER_COMPARE_FILTER = 1;
 
+    /**
+     * A filter that determines whether the expression being tested is empty or not.
+     */
     //const FILTER_IS_NULL_FILTER = 2;
 
+    /**
+     * A filter that checks if the expression being checked is in the range of expressions.
+     */
     const FILTER_BETWEEN = 3;
 
+    /**
+     * A filter that checks whether the expression being tested is equal to one of the expressions.
+     */
     //const FILTER_IN_FILTER = 4;
 
+    /**
+     * Filter existence by a given field.
+     */
     //const FILTER_EXISTS = 5;
 
+    /**
+     * Filter group.
+     */
     //const FILTER_FILTER_GROUP = 6;
 
-    // WTF?
+    /* COMPARISON */
 
-    const COMPARISON_NONE = 0;
-
-    const COMPARISON_EQUAL = 0;
-
-    //const COMPARISON_NOT_EQUAL = 0;
-
+    /**
+     * Value range.
+     */
     const COMPARISON_BETWEEN = 0;
 
-    //const COMPARISON_START_WITH = 0;
+    /**
+     * Equally.
+     */
+    const COMPARISON_EQUAL = 3;
 
-    //const COMPARISON_END_WITH = 0;
+    /**
+     * Not equal.
+     */
+    const COMPARISON_NOT_EQUAL = 4;
 
-    //const COMPARISON_GREATER = 0;
+    /**
+     * Starts with an expression.
+     */
+    const COMPARISON_START_WITH = 9;
 
-    //const COMPARISON_GREATER_OR_EQUAL = 0;
+    /**
+     * Does not start with an expression.
+     */
+    const COMPARISON_NO_START_WITH = 10;
 
-    //const COMPARISON_LESS = 0;
+    /**
+     * Contains an expression.
+     */
+    const COMPARISON_CONTAIN = 11;
 
-    //const COMPARISON_LESS_OR_EQUAL = 0;
+    /**
+     * Does not contain an expression.
+     */
+    const COMPARISON_NOT_CONTAIN = 12;
 
-    //const COMPARISON_CONTAIN = 0;
-    
-    //const COMPARISON_NOT_CONTAIN = 0;
+    /**
+     * Ends expression.
+     */
+    const COMPARISON_END_WITH = 13;
+
+    /**
+     * Does not end with an expression.
+     */
+    const COMPARISON_NO_END_WITH = 14;
+
+    /**
+     * More.
+     */
+    //const COMPARISON_GREATER = -1;
+
+    /**
+     * More or equal.
+     */
+    //const COMPARISON_GREATER_OR_EQUAL = -1;
+
+    /**
+     * Less.
+     */
+    //const COMPARISON_LESS = -1;
+
+    /**
+     * Less or equal.
+     */
+    //const COMPARISON_LESS_OR_EQUAL = -1;
+
+
 
     /**
      * List of supported fields.
@@ -64,6 +137,13 @@ class ColumnFilter extends StorageArray
         'columnExpressions' => [],
     ];
 
+    /**
+     * Sets the input values.
+     *
+     * @param int                       $filterType         Filter type.
+     * @param int                       $comparisonType     Comparison Type.
+     * @param ColumnExpression|null     $_                  Column expressions.
+     */
     public function __construct($filterType, $comparisonType, ColumnExpression $_ = null)
     {
         parent::__construct([
@@ -73,6 +153,11 @@ class ColumnFilter extends StorageArray
         ]);
     }
 
+    /**
+     * Returns data as an associative array.
+     *
+     * @return array
+     */
     public function toArray()
     {
         $data = [
@@ -93,25 +178,40 @@ class ColumnFilter extends StorageArray
         return $data;
     }
 
+    /**
+     * Validates filter data, throws an exception in case of an error.
+     *
+     * @throws ValidateException
+     */
     public function validate()
     {
-        if (!in_array($this->getFilterType(), [
-            self::FILTER_COMPARE_FILTER,
-            self::FILTER_BETWEEN
-        ])) {
-            throw new ValidateException('Invalid filter.');
+        $errorMsg = '';
+        switch (true) {
+            case (!in_array($this->getFilterType(), [
+                self::FILTER_COMPARE_FILTER,
+                self::FILTER_BETWEEN
+            ])):
+                $errorMsg = 'Invalid filter.';
+                break;
+            case (!in_array($this->getComparisonType(), [
+                self::COMPARISON_EQUAL,
+                self::COMPARISON_BETWEEN
+            ])):
+                $errorMsg = 'Invalid filter compare arguments.';
+                break;
+            case (
+                (self::FILTER_COMPARE_FILTER == $this->getFilterType()) &&
+                (2 != count($this->getColumnExpressions()))
+            ):
+            case (
+                (self::FILTER_BETWEEN == $this->getFilterType()) &&
+                (3 != count($this->getColumnExpressions()))
+            ):
+                $errorMsg = 'Invalid count column expressions.';
+                break;
         }
-        if (!in_array($this->getComparisonType(), [
-            self::COMPARISON_EQUAL,
-            self::COMPARISON_BETWEEN
-        ])) {
-            throw new ValidateException('Invalid filter compare arguments.');
-        }
-        if ((self::FILTER_COMPARE_FILTER == $this->getFilterType()) && (2 != count($this->getColumnExpressions()))) {
-            throw new ValidateException('Invalid count column expressions.');
-        }
-        if ((self::FILTER_BETWEEN == $this->getFilterType()) && (3 != count($this->getColumnExpressions()))) {
-            throw new ValidateException('Invalid count column expressions.');
+        if (!empty($errorMsg)) {
+            throw new ValidateException($errorMsg);
         }
     }
 }

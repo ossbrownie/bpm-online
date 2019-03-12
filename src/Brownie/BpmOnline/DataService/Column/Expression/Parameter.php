@@ -7,54 +7,106 @@
 
 namespace Brownie\BpmOnline\DataService\Column\Expression;
 
-use Brownie\BpmOnline\DataService\Type\DataValueType;
-use Brownie\BpmOnline\Exception\ValidateException;
 use Brownie\BpmOnline\DataService\Column\Expression;
 
 /**
- * The Parameter class is defined in the Terrasoft.Nui.ServiceModel.DataContract namespace.
+ * Specifies the value that will be contained in the added column.
  *
- * @method bool         getArrayValue()                     Returns an array of column values.
+ * @method []|mixed     getArrayValue()                     Returns an array of column values.
  * @method bool         setArrayValue(array $values)        Sets an array of values column.
  * @method bool         getShouldSkipConvertion()           Returns the flag to skip the cast process.
  * @method Parameter    setShouldSkipConvertion($isSkip)    Sets the flag to skip the cast process.
  *                                                          for the Value property.
+ * @method bool         getDataValueType()                  Parameter data type.
  */
 class Parameter extends Expression
 {
 
+    /**
+     * Guid.
+     */
     const GUID = 0;
 
+    /**
+     * Text.
+     */
     const TEXT = 1;
 
+    /**
+     * Integer.
+     */
     const INTEGER = 4;
 
+    /**
+     * Float.
+     */
     const FLOAT = 5;
 
+    /**
+     * Money.
+     */
     const MONEY = 6;
 
+    /**
+     * DateTime.
+     */
     const DATE_TIME = 7;
 
+    /**
+     * Date.
+     */
     const DATE = 8;
 
+    /**
+     * Time.
+     */
     const TIME = 9;
 
+    /**
+     * Lookup.
+     */
     const LOOKUP = 10;
 
+    /**
+     * Enum.
+     */
     const ENUM = 11;
 
+    /**
+     * Boolean.
+     */
     const BOOLEAN = 12;
 
+    /**
+     * Blob.
+     */
     const BLOB = 13;
 
+    /**
+     * Image.
+     */
     const IMAGE = 14;
 
+    /**
+     * ImageLookup.
+     */
     const IMAGE_LOOKUP = 16;
 
+    /**
+     * Color.
+     */
     const COLOR = 18;
 
+    /**
+     * Mapping.
+     */
     const MAPPING = 26;
 
+    /**
+     * Key depending on the ExpressionType property.
+     *
+     * @var string
+     */
     protected $keyName = 'Parameter';
 
     /**
@@ -87,8 +139,6 @@ class Parameter extends Expression
      * Returns data as an associative array.
      *
      * @return array
-     *
-     * @throws ValidateException
      */
     public function getValue()
     {

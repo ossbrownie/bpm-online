@@ -7,23 +7,38 @@
 
 namespace Brownie\BpmOnline\DataService\Column;
 
+/**
+ * An expression defining a column type.
+ */
 class ColumnExpression
 {
 
-    private $columnExpressions = [];
+    /**
+     * Collection of expressions.
+     *
+     * @var Expression[]
+     */
+    private $expressions = [];
 
+    /**
+     * Sets the input values.
+     *
+     * @param Expression|null   $_      Collection of expressions.
+     */
     public function __construct(Expression $_ = null)
     {
-        $this->columnExpressions = func_get_args();
+        $this->expressions = func_get_args();
     }
 
+    /**
+     * Returns data as an associative array.
+     *
+     * @return array
+     */
     public function toArray()
     {
         $expressions = [];
-        /**
-         * @var Expression $expression
-         */
-        foreach ($this->columnExpressions as $expression) {
+        foreach ($this->expressions as $expression) {
             $expressions[$expression->getKeyName()] = $expression->getValue();
         }
         return $expressions;

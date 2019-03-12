@@ -10,11 +10,18 @@ namespace Brownie\BpmOnline\DataService\Column\Expression;
 use Brownie\BpmOnline\DataService\Column\Expression;
 
 /**
- * @method string getValue() Returns column path.
+ * The path to the column relative to the root schema.
+ *
+ * @method string   getValue()  Returns column path.
  */
 class ColumnPath extends Expression
 {
 
+    /**
+     * Key depending on the ExpressionType property.
+     *
+     * @var string
+     */
     protected $keyName = 'ColumnPath';
 
     /**

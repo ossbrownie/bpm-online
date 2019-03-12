@@ -1,15 +1,17 @@
 Bpm’online
 ==========
 
-[![Latest Stable Version](https://poser.pugx.org/ossbrownie/bpm-online/v/stable)](https://packagist.org/packages/ossbrownie/bpm-online)
-[![Total Downloads](https://poser.pugx.org/ossbrownie/bpm-online/downloads)](https://packagist.org/packages/ossbrownie/bpm-online)
-[![Latest Unstable Version](https://poser.pugx.org/ossbrownie/bpm-online/v/unstable)](https://packagist.org/packages/ossbrownie/bpm-online)
 [![License](https://poser.pugx.org/ossbrownie/bpm-online/license)](https://packagist.org/packages/ossbrownie/bpm-online)
+[![Latest Stable Version](https://poser.pugx.org/ossbrownie/bpm-online/v/stable)](https://packagist.org/packages/ossbrownie/bpm-online)
+[![Latest Unstable Version](https://poser.pugx.org/ossbrownie/bpm-online/v/unstable)](https://packagist.org/packages/ossbrownie/bpm-online)
+[![Total Downloads](https://poser.pugx.org/ossbrownie/bpm-online/downloads)](https://packagist.org/packages/ossbrownie/bpm-online)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/ossbrownie/bpm-online/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://travis-ci.org/ossbrownie/bpm-online.svg?branch=master)](https://travis-ci.org/ossbrownie/bpm-online)
+
+[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D7.0-brightgreen.svg)](https://php.net/)
 
 API access to a single marketing management platform 'CRM-system bpm’online'
 
@@ -23,7 +25,7 @@ A basic CURL wrapper for PHP (see [http://php.net/curl](http://php.net/curl) for
 - **PHP** = >= 7.0
 - **EXT-CURL** = *
 - **EXT-JSON** = *
-- **ossbrownie/http-client** = ~0.0.4
+- **ossbrownie/http-client** = ~0.0.5
 - **ossbrownie/util** = ~0.0.5
 
 

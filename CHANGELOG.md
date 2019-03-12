@@ -1,5 +1,11 @@
 # Change Log
 
+# dev-master (2019-03-12)
+
+- Refactoring.
+- Updated composer.json, .scrutinizer.yml, .travis.yml
+- Update annotations.
+
 ## dev-master (2019-03-11)
 
 - Refactoring.

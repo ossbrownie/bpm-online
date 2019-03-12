@@ -9,19 +9,42 @@ namespace Brownie\BpmOnline\DataService\Column\Expression;
 
 use Brownie\BpmOnline\DataService\Column\Expression;
 
+/**
+ * The type of expression that determines the value that will be contained in the added column.
+ */
 class ExpressionType extends Expression
 {
 
+    /**
+     * Scheme column.
+     */
     const SCHEMA_COLUMN = 0;
 
+    /**
+     * Function.
+     */
     const FUNCTION = 1;
 
+    /**
+     * Parameter.
+     */
     const PARAMETER = 2;
 
+    /**
+     * Subquery.
+     */
     const SUB_QUERY = 3;
 
+    /**
+     * Arithmetic operation.
+     */
     const ARITHMETIC_OPERATION = 4;
 
+    /**
+     * Key depending on the ExpressionType property.
+     *
+     * @var string
+     */
     protected $keyName = 'ExpressionType';
 
     /**
