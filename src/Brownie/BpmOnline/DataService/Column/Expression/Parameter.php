@@ -17,7 +17,7 @@ use Brownie\BpmOnline\DataService\Column\Expression;
  * @method bool         getShouldSkipConvertion()           Returns the flag to skip the cast process.
  * @method Parameter    setShouldSkipConvertion($isSkip)    Sets the flag to skip the cast process.
  *                                                          for the Value property.
- * @method bool         getDataValueType()                  Parameter data type.
+ * @method int          getDataValueType()                  Parameter data type.
  */
 class Parameter extends Expression
 {
@@ -110,6 +110,18 @@ class Parameter extends Expression
     protected $keyName = 'Parameter';
 
     /**
+     * List of supported fields.
+     *
+     * @var array
+     */
+    protected $fields = [
+        'dataValueType' => self::TEXT,
+        'value' => '',
+        'arrayValue' => [],
+        'shouldSkipConvertion' => false,
+    ];
+
+    /**
      * Sets the input values.
      *
      * @param mixed     $value          Value.
@@ -124,18 +136,6 @@ class Parameter extends Expression
     }
 
     /**
-     * List of supported fields.
-     *
-     * @var array
-     */
-    protected $fields = [
-        'dataValueType' => self::TEXT,
-        'value' => '',
-        'arrayValue' => [],
-        'shouldSkipConvertion' => false,
-    ];
-
-    /**
      * Returns data as an associative array.
      *
      * @return array
@@ -146,7 +146,7 @@ class Parameter extends Expression
             'DataValueType' => $this->getDataValueType(),
             'Value' => parent::getValue(),
         ];
-        if (!empty($this->getArrayValue()) && is_array($this->getArrayValue())) {
+        if (is_array($this->getArrayValue()) && !empty($this->getArrayValue())) {
             $data['ArrayValue'] = $this->getArrayValue();
         }
         if (!empty($this->getShouldSkipConvertion())) {
