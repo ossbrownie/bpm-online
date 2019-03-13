@@ -103,4 +103,18 @@ class Contract extends StorageArray
     {
         throw new ValidateException('Invalid contract arguments.');
     }
+
+    /**
+     * Returns the response of the performance contract.
+     *
+     * @param string    $rawResponse    Raw response.
+     *
+     * @return Response
+     *
+     * @throws ValidateException
+     */
+    public function getResponse($rawResponse)
+    {
+        throw new ValidateException('Invalid response arguments.');
+    }
 }

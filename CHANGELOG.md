@@ -1,5 +1,21 @@
 # Change Log
 
+# dev-master (2019-03-13)
+
+# 0.0.1 (2019-03-13)
+
+- Refactoring.
+- Added class Brownie/BpmOnline/DataService/Response/DeleteContract
+- Added class Brownie/BpmOnline/DataService/Response/InsertContract
+- Added class Brownie/BpmOnline/DataService/Response/SelectContract
+- Added class Brownie/BpmOnline/DataService/Response/UpdateContract
+- Added class Brownie/BpmOnline/DataService/Response
+- Added unitTest for class Brownie/BpmOnline/DataService/Response/DeleteContract
+- Added unitTest for class Brownie/BpmOnline/DataService/Response/InsertContract
+- Added unitTest for class Brownie/BpmOnline/DataService/Response/SelectContract
+- Added unitTest for class Brownie/BpmOnline/DataService/Response/UpdateContract
+- Added unitTest for class Brownie/BpmOnline/DataService/Response
+
 # dev-master (2019-03-12)
 
 - Refactoring.

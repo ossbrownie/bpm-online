@@ -11,6 +11,8 @@ use Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnExpression;
 use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use Brownie\BpmOnline\Exception\ValidateException;
+use Brownie\BpmOnline\DataService\Response\UpdateContract as ResponseUpdateContract;
+
 
 /**
  * UpdateContract Data Contract.
@@ -113,5 +115,17 @@ class UpdateContract extends Contract
             throw new ValidateException('Invalid contract arguments.');
         }
         $this->filter->validate();
+    }
+
+    /**
+     * Returns the response of the performance contract.
+     *
+     * @param string    $rawResponse    Raw response.
+     *
+     * @return ResponseUpdateContract
+     */
+    public function getResponse($rawResponse)
+    {
+        return new ResponseUpdateContract($rawResponse);
     }
 }

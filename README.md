@@ -15,8 +15,6 @@ Bpm’online
 
 API access to a single marketing management platform 'CRM-system bpm’online'
 
-# Sorry, this package is under development and may not work correctly.
-
 ## curl
 A basic CURL wrapper for PHP (see [http://php.net/curl](http://php.net/curl) for more information about the libcurl extension for PHP)
 

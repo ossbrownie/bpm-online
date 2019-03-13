@@ -11,9 +11,23 @@ use Brownie\BpmOnline\DataService\Column\ColumnExpression;
 use Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use Brownie\BpmOnline\Exception\ValidateException;
+use Brownie\BpmOnline\DataService\Response\SelectContract as ResponseSelectContract;
 
 /**
  * SelectContract Data Contract.
+ *
+ * @method bool             getIsAllColumns()               Returns the flag for selecting all columns.
+ * @method SelectContract   setIsAllColumns($isAllColumns)  Sets the flag for selecting all columns.
+ * @method bool             getIsPageable()                 Returns the pagination attribute.
+ * @method SelectContract   setIsPageable($isPageable)      Sets the pagination flag.
+ * @method bool             getIsDistinct()                 Returns flag of uniqueness.
+ * @method SelectContract   setIsDistinct($isDistinct)      Sets flag of uniqueness.
+ * @method int              getRowCount()                   Return number of records selected.
+ * @method SelectContract   setRowCount($rowCount)          Sets number of records selected.
+ * @method int              getRowsOffset()                 Returns the number of rows to skip when
+ *                                                          returning a query result.
+ * @method SelectContract   setRowsOffset($rowsOffset)      Sets the number of lines to skip when
+ *                                                          returning a query result.
  */
 class SelectContract extends Contract
 {
@@ -33,32 +47,51 @@ class SelectContract extends Contract
     private $filter = null;
 
     /**
-     * Flag of selection of all columns.
+     * List of supported fields.
      *
-     * @var bool
+     * @var array
      */
-    private $isAllColumns = false;
+    protected $fields = [
+        /**
+         * The name of the root schema object.
+         */
+        'rootSchemaName' => '',
 
-    /**
-     * Flag of pagination.
-     *
-     * @var bool
-     */
-    private $isPageable = false;
+        /**
+         * Record operation type.
+         */
+        'operationType' => null,
 
-    /**
-     * Flag of uniqueness.
-     *
-     * @var bool
-     */
-    private $isDistinct = false;
+        /**
+         * Determination of the contract to fulfill the request in the API.
+         */
+        'contractType' => null,
 
-    /**
-     * Number of records selected.
-     *
-     * @var int
-     */
-    private $rowCount = -1;
+        /**
+         * Flag of selection of all columns.
+         */
+        'isAllColumns' => false,
+
+        /**
+         *  Flag of pagination.
+         */
+        'isPageable' => false,
+
+        /**
+         * Flag of uniqueness.
+         */
+        'isDistinct' => false,
+
+        /**
+         * Number of records selected.
+         */
+        'rowCount' => -1,
+
+        /**
+         * The number of rows to skip when returning a query result.
+         */
+        'rowsOffset' => 0,
+    ];
 
     /**
      * Sets the input values.
@@ -68,106 +101,21 @@ class SelectContract extends Contract
     public function __construct($rootSchemaName)
     {
         parent::__construct([
+            /**
+             * A string containing the name of the object's root schema for the entry to be added.
+             */
             'rootSchemaName' => $rootSchemaName,
+
+            /**
+             * The type of operation with the record.
+             */
             'operationType' => Contract::SELECT,
+
+            /**
+             * Contract type.
+             */
             'contractType' => Contract::SELECT_QUERY,
         ]);
-    }
-
-    /**
-     * Sets the flag for selecting all columns.
-     * Returns the current object.
-     *
-     * @param bool $isAllColumns Flag of selection of all columns.
-     *
-     * @return self
-     */
-    public function setIsAllColumns($isAllColumns)
-    {
-        $this->isAllColumns = (bool)$isAllColumns;
-        return $this;
-    }
-
-    /**
-     * Returns the flag for selecting all columns.
-     *
-     * @return bool
-     */
-    private function isAllColumns()
-    {
-        return $this->isAllColumns;
-    }
-
-    /**
-     * Sets the pagination flag.
-     * Returns the current object.
-     *
-     * @param bool $isPageable Flag of pagination.
-     *
-     * @return self
-     */
-    public function setIsPageable($isPageable)
-    {
-        $this->isPageable = $isPageable;
-        return $this;
-    }
-
-    /**
-     * Returns the pagination attribute.
-     *
-     * @return bool
-     */
-    private function isPageable()
-    {
-        return $this->isPageable;
-    }
-
-    /**
-     * Sets flag of uniqueness.
-     * Returns the current object.
-     *
-     * @param bool $isDistinct Flag of uniqueness.
-     *
-     * @return self
-     */
-    public function setIsDistinct($isDistinct)
-    {
-        $this->isDistinct = $isDistinct;
-        return $this;
-    }
-
-    /**
-     * Returns flag of uniqueness.
-     *
-     * @return bool
-     */
-    private function isDistinct()
-    {
-        return $this->isDistinct;
-    }
-
-    /**
-     * Sets number of records selected.
-     * Returns the current object.
-     *
-     * @param int $rowCount Number of records selected.
-     *
-     * @return self
-     */
-    public function setRowCount($rowCount)
-    {
-        $this->rowCount = $rowCount;
-        return $this;
-    }
-
-    /**
-     * Return number of records selected.
-     *
-     * @return int
-     */
-    private function getRowCount()
-    {
-        return $this->rowCount;
     }
 
     /**
@@ -175,19 +123,19 @@ class SelectContract extends Contract
      * Returns the current object.
      *
      * @param string            $name               Column name.
-     * @param string            $orderDirection     The sort order.
-     * @param int               $orderPosition      Column position.
      * @param string            $caption            Headline.
      * @param ColumnExpression  $columnExpression   Query expression to the schema object.
+     * @param string            $orderDirection     The sort order.
+     * @param int               $orderPosition      Column position.
      *
      * @return self
      */
     public function addColumn(
         $name,
-        $orderDirection,
-        $orderPosition,
         $caption,
-        ColumnExpression $columnExpression
+        ColumnExpression $columnExpression,
+        $orderDirection = 'asc',
+        $orderPosition = 0
     ) {
         $this->columns[$name] = [
             'OrderDirection' => $orderDirection,
@@ -233,7 +181,7 @@ class SelectContract extends Contract
             'Columns' => [
                 'Items' => $columns
             ],
-            'AllColumns' => $this->isAllColumns(),
+            'AllColumns' => $this->getIsAllColumns(),
             /*
             'ServerESQCacheParameters' => [
                 'CacheLevel' => 0,
@@ -241,9 +189,10 @@ class SelectContract extends Contract
                 'CacheItemName' => '',
             ],
             */
-            'IsPageable' => $this->isPageable(),
-            'IsDistinct' => $this->isDistinct(),
+            'IsPageable' => $this->getIsPageable(),
+            'IsDistinct' => $this->getIsDistinct(),
             'RowCount' => $this->getRowCount(),
+            'RowsOffset' => $this->getRowsOffset(),
             //'ConditionalValues' => null,
             //'IsHierarchical' => false,
             //'HierarchicalMaxDepth' => 0,
@@ -259,11 +208,25 @@ class SelectContract extends Contract
 
     /**
      * Validates contract data, throws an exception in case of an error.
+     *
+     * @throws ValidateException
      */
     public function validate()
     {
         if (0 != $this->getOperationType()) {
             throw new ValidateException('Invalid contract arguments.');
         }
+    }
+
+    /**
+     * Returns the response of the performance contract.
+     *
+     * @param string    $rawResponse    Raw response.
+     *
+     * @return ResponseSelectContract
+     */
+    public function getResponse($rawResponse)
+    {
+        return new ResponseSelectContract($rawResponse);
     }
 }

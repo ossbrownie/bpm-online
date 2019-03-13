@@ -10,6 +10,7 @@ namespace Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnExpression;
 use Brownie\BpmOnline\Exception\ValidateException;
 use Brownie\BpmOnline\DataService\Contract;
+use Brownie\BpmOnline\DataService\Response\InsertContract as ResponseInsertContract;
 
 /**
  * InsertContract Data Contract.
@@ -81,5 +82,17 @@ class InsertContract extends Contract
         if ((1 != $this->getOperationType()) || empty($this->dictionary)) {
             throw new ValidateException('Invalid contract arguments.');
         }
+    }
+
+    /**
+     * Returns the response of the performance contract.
+     *
+     * @param string    $rawResponse    Raw response.
+     *
+     * @return ResponseInsertContract
+     */
+    public function getResponse($rawResponse)
+    {
+        return new ResponseInsertContract($rawResponse);
     }
 }

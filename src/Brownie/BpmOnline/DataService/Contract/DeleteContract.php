@@ -10,6 +10,7 @@ namespace Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Contract;
 use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use Brownie\BpmOnline\Exception\ValidateException;
+use Brownie\BpmOnline\DataService\Response\DeleteContract as ResponseDeleteContract;
 
 /**
  * DeleteContract Data Contract.
@@ -80,5 +81,17 @@ class DeleteContract extends Contract
             throw new ValidateException('Invalid contract arguments.');
         }
         $this->filter->validate();
+    }
+
+    /**
+     * Returns the response of the performance contract.
+     *
+     * @param string    $rawResponse    Raw response.
+     *
+     * @return ResponseDeleteContract
+     */
+    public function getResponse($rawResponse)
+    {
+        return new ResponseDeleteContract($rawResponse);
     }
 }
