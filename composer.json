@@ -3,7 +3,7 @@
     "description": "API access to a single marketing management platform 'CRM-system bpm’online'",
     "license": "MIT",
     "type": "library",
-    "keywords": ["brownie", "bpm", "bpm-online", "bpmonline", "bpm’online", "bpm'online", "terrasoft"],
+    "keywords": ["brownie", "bpm", "bpm-online", "bpmonline", "terrasoft"],
     "homepage": "https://github.com/ossbrownie/bpm-online",
     "version": "0.0.1",
     "authors": [
