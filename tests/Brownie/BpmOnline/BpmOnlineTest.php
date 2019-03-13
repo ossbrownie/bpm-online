@@ -17,11 +17,9 @@ class BpmOnlineTest extends TestCase
 
     protected function setUp()
     {
-        $httpClient = $this->prophesize(HttpClient::class);
-
         $config = $this->prophesize(Config::class);
 
-
+        $httpClient = $this->prophesize(HttpClient::class);
 
         $this->bpmOnline = new BpmOnline(
             $httpClient->reveal(),
@@ -34,7 +32,7 @@ class BpmOnlineTest extends TestCase
         $this->bpmOnline = null;
     }
 
-    public function testStub()
+    public function testGetResponse()
     {
         $this->assertEquals('test', 'test');
     }

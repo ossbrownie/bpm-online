@@ -26,9 +26,17 @@ class ContractTest extends TestCase
     /**
      * @expectedException \Brownie\BpmOnline\Exception\ValidateException
      */
-    public function testValidateException()
+    public function testValidateValidateException()
     {
         $this->contract->validate();
+    }
+
+    /**
+     * @expectedException \Brownie\BpmOnline\Exception\ValidateException
+     */
+    public function testGetResponseValidateException()
+    {
+        $this->contract->getResponse('');
     }
 
     public function testSetGetRootSchemaName()

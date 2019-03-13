@@ -6,6 +6,7 @@ use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use PHPUnit\Framework\TestCase;
 use Brownie\BpmOnline\DataService\Contract\DeleteContract;
 use Prophecy\Prophecy\MethodProphecy;
+use Brownie\BpmOnline\DataService\Response\DeleteContract as ResponseDeleteContract;
 
 class DeleteContractTest extends TestCase
 {
@@ -116,5 +117,13 @@ class DeleteContractTest extends TestCase
             'OperationType' => 3,
             'Filters' => [],
         ], $this->deleteContract->toArray());
+    }
+
+    public function testGetResponse()
+    {
+        $this->assertInstanceOf(
+            ResponseDeleteContract::class,
+            $this->deleteContract->getResponse('{}')
+        );
     }
 }

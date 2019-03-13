@@ -7,6 +7,7 @@ use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use PHPUnit\Framework\TestCase;
 use Brownie\BpmOnline\DataService\Contract\UpdateContract;
 use Prophecy\Prophecy\MethodProphecy;
+use Brownie\BpmOnline\DataService\Response\UpdateContract as ResponseUpdateContract;
 
 class UpdateContractTest extends TestCase
 {
@@ -146,5 +147,13 @@ class UpdateContractTest extends TestCase
             ],
             'Filters' => [],
         ], $this->updateContract->toArray());
+    }
+
+    public function testGetResponse()
+    {
+        $this->assertInstanceOf(
+            ResponseUpdateContract::class,
+            $this->updateContract->getResponse('{}')
+        );
     }
 }

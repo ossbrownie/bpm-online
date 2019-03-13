@@ -7,6 +7,7 @@ use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use PHPUnit\Framework\TestCase;
 use Brownie\BpmOnline\DataService\Contract\SelectContract;
 use Prophecy\Prophecy\MethodProphecy;
+use Brownie\BpmOnline\DataService\Response\SelectContract as ResponseSelectContract;
 
 class SelectContractTest extends TestCase
 {
@@ -104,9 +105,10 @@ class SelectContractTest extends TestCase
 
         $selectContract = $this->selectContract->addColumn(
             'TestColumn',
-            'asc', 0,
             'Test Name Column',
-            $columnExpression->reveal()
+            $columnExpression->reveal(),
+            'asc',
+            0
         );
 
         $this->assertInstanceOf(SelectContract::class, $selectContract);
@@ -156,6 +158,15 @@ class SelectContractTest extends TestCase
             'IsPageable' => false,
             'IsDistinct' => false,
             'RowCount' => -1,
+            'RowsOffset' => 0,
         ], $this->selectContract->toArray());
+    }
+
+    public function testGetResponse()
+    {
+        $this->assertInstanceOf(
+            ResponseSelectContract::class,
+            $this->selectContract->getResponse('{}')
+        );
     }
 }

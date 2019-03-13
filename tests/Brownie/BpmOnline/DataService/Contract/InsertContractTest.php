@@ -6,6 +6,7 @@ use Brownie\BpmOnline\DataService\Column\ColumnExpression;
 use PHPUnit\Framework\TestCase;
 use Brownie\BpmOnline\DataService\Contract\InsertContract;
 use Prophecy\Prophecy\MethodProphecy;
+use Brownie\BpmOnline\DataService\Response\InsertContract as ResponseInsertContract;
 
 class InsertContractTest extends TestCase
 {
@@ -108,5 +109,13 @@ class InsertContractTest extends TestCase
                 ]
             ]
         ], $this->insertContract->toArray());
+    }
+
+    public function testGetResponse()
+    {
+        $this->assertInstanceOf(
+            ResponseInsertContract::class,
+            $this->insertContract->getResponse('{}')
+        );
     }
 }
