@@ -39,10 +39,10 @@ Add a line to your "require" section in your composer configuration:
 
 
 ## Documentation
-- [InsertQuery](https://github.com/ossbrownie/bpm-online/wiki/ContractInsertQuery) - Data Contract InsertQuery.
-- [SelectQuery](https://github.com/ossbrownie/bpm-online/wiki/ContractSelectQuery) - Data Contract SelectQuery.
-- [UpdateQuery](https://github.com/ossbrownie/bpm-online/wiki/ContractUpdateQuery) - Data Contract UpdateQuery.
-- [DeleteQuery](https://github.com/ossbrownie/bpm-online/wiki/ContractDeleteQuery) - Data Contract DeleteQuery.
+- [InsertQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-InsertQuery) - Data Contract InsertQuery.
+- [SelectQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-SelectQuery) - Data Contract SelectQuery.
+- [UpdateQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-UpdateQuery) - Data Contract UpdateQuery.
+- [DeleteQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) - Data Contract DeleteQuery.
 
 
 ## Tests
