@@ -185,33 +185,75 @@ class ColumnFilter extends StorageArray
      */
     public function validate()
     {
-        $errorMsg = '';
-        switch (true) {
-            case (!in_array($this->getFilterType(), [
+        $this->checkFilterType();
+        $this->checkComparisonType();
+        $this->checkCompareColumnExpressions();
+        $this->checkBetweenColumnExpressions();
+    }
+
+    /**
+     * Filter type check.
+     *
+     * @throws ValidateException
+     */
+    private function checkFilterType()
+    {
+        if (!in_array(
+            $this->getFilterType(),
+            [
                 self::FILTER_COMPARE_FILTER,
                 self::FILTER_BETWEEN
-            ])):
-                $errorMsg = 'Invalid filter.';
-                break;
-            case (!in_array($this->getComparisonType(), [
+            ]
+        )) {
+            throw new ValidateException('Invalid filter.');
+        }
+    }
+
+    /**
+     * Verification of the comparison method.
+     *
+     * @throws ValidateException
+     */
+    private function checkComparisonType()
+    {
+        if (!in_array(
+            $this->getComparisonType(),
+            [
                 self::COMPARISON_EQUAL,
                 self::COMPARISON_BETWEEN
-            ])):
-                $errorMsg = 'Invalid filter compare arguments.';
-                break;
-            case (
-                (self::FILTER_COMPARE_FILTER == $this->getFilterType()) &&
-                (2 != count($this->getColumnExpressions()))
-            ):
-            case (
-                (self::FILTER_BETWEEN == $this->getFilterType()) &&
-                (3 != count($this->getColumnExpressions()))
-            ):
-                $errorMsg = 'Invalid count column expressions.';
-                break;
+            ]
+        )) {
+            throw new ValidateException('Invalid filter compare arguments.');
         }
-        if (!empty($errorMsg)) {
-            throw new ValidateException($errorMsg);
+    }
+
+    /**
+     * Checking expressions for comparing values.
+     *
+     * @throws ValidateException
+     */
+    private function checkCompareColumnExpressions()
+    {
+        if (
+            (self::FILTER_COMPARE_FILTER == $this->getFilterType()) &&
+            (2 != count($this->getColumnExpressions()))
+        ) {
+            throw new ValidateException('Invalid filter_compare count column expressions.');
+        }
+    }
+
+    /**
+     * Checking expressions for between values.
+     *
+     * @throws ValidateException
+     */
+    private function checkBetweenColumnExpressions()
+    {
+        if (
+            (self::FILTER_BETWEEN == $this->getFilterType()) &&
+            (3 != count($this->getColumnExpressions()))
+        ) {
+            throw new ValidateException('Invalid filter_between count column expressions.');
         }
     }
 }

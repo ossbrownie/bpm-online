@@ -113,7 +113,7 @@ class Contract extends StorageArray
      *
      * @throws ValidateException
      */
-    public function getResponse($rawResponse)
+    public function getResponse(/** @scrutinizer ignore-unused */ $rawResponse)
     {
         throw new ValidateException('Invalid response arguments.');
     }

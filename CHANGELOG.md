@@ -1,6 +1,10 @@
 # Change Log
 
-# dev-master (2019-03-13)
+# dev-master (2019-03-14)
+
+# 0.0.2 (2019-03-14)
+
+- Updated unitTest and fixed scrutinizer issues.
 
 # 0.0.1 (2019-03-13)
 
