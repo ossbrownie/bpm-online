@@ -131,7 +131,10 @@ class UpdateContractTest extends TestCase
                 'Items' => [],
             ],
             'Filters' => [
-                'test' => 'Ok',
+                'FilterType' => 6,
+                'Items' => [
+                    'index_0' => ['test' => 'Ok'],
+                ]
             ],
         ], $this->updateContract->toArray());
     }
@@ -145,7 +148,6 @@ class UpdateContractTest extends TestCase
             'ColumnValues' => [
                 'Items' => [],
             ],
-            'Filters' => [],
         ], $this->updateContract->toArray());
     }
 

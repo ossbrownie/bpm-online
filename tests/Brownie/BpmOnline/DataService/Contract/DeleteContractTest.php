@@ -105,7 +105,10 @@ class DeleteContractTest extends TestCase
             'RootSchemaName' => 'rootSchemaName',
             'OperationType' => 3,
             'Filters' => [
-                'test' => 'Ok',
+                'FilterType' => 6,
+                'Items' => [
+                    'index_0' => ['test' => 'Ok'],
+                ]
             ],
         ], $this->deleteContract->toArray());
     }
@@ -115,7 +118,10 @@ class DeleteContractTest extends TestCase
         $this->assertEquals([
             'RootSchemaName' => 'rootSchemaName',
             'OperationType' => 3,
-            'Filters' => [],
+            'Filters' => [
+                'FilterType' => 6,
+                'Items' => []
+            ],
         ], $this->deleteContract->toArray());
     }
 

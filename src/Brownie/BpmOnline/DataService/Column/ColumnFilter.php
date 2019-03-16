@@ -23,108 +23,126 @@ class ColumnFilter extends StorageArray
     /* FILTER */
 
     /**
-     * Filter type not defined.
+     * Filter type not set.
      */
     const FILTER_NONE = 0;
 
     /**
      * Comparison filter.
      */
-    const FILTER_COMPARE_FILTER = 1;
+    const FILTER_COMPARE = 1;
 
     /**
-     * A filter that determines whether the expression being tested is empty or not.
+     * A filter that checks if the test expression is empty or not empty.
      */
-    //const FILTER_IS_NULL_FILTER = 2;
+    const FILTER_IS_NULL = 2;
 
     /**
-     * A filter that checks if the expression being checked is in the range of expressions.
+     * A filter that checks if the expression to be tested falls within the range of expressions.
      */
     const FILTER_BETWEEN = 3;
 
     /**
-     * A filter that checks whether the expression being tested is equal to one of the expressions.
+     * A filter that checks if the test expression is equal to one of the expressions.
      */
-    //const FILTER_IN_FILTER = 4;
+    const FILTER_IN = 4;
 
     /**
-     * Filter existence by a given field.
+     * The filter "Exists according to the set condition".
      */
-    //const FILTER_EXISTS = 5;
+    const FILTER_EXISTS = 5;
 
     /**
-     * Filter group.
+     * Filter ser.
      */
-    //const FILTER_FILTER_GROUP = 6;
+    const FILTER_FILTER_GROUP = 6;
 
     /* COMPARISON */
 
     /**
-     * Value range.
+     * Checks if the value falls within the range of values.
      */
     const COMPARISON_BETWEEN = 0;
 
     /**
-     * Equally.
+     * Checks whether the value is empty.
+     */
+    const COMPARISON_IS_NULL = 1;
+
+    /**
+     * Checks that the value is not empty.
+     */
+    const COMPARISON_IS_NOT_NULL = 2;
+
+    /**
+     * Checks for equality of values.
      */
     const COMPARISON_EQUAL = 3;
 
     /**
-     * Not equal.
+     * Checks for inequality of values.
      */
     const COMPARISON_NOT_EQUAL = 4;
 
     /**
-     * Starts with an expression.
+     * Checks that the value is less.
+     */
+    const COMPARISON_LESS = 5;
+
+    /**
+     * Checks that the value is less than or equal to.
+     */
+    const COMPARISON_LESS_OR_EQUAL = 6;
+
+    /**
+     * Checks that the value is greater.
+     */
+    const COMPARISON_GREATER = 7;
+
+    /**
+     * Verifying that the value is greater than or equal to.
+     */
+    const COMPARISON_GREATER_OR_EQUAL = 8;
+
+    /**
+     * Checks if the value starts with the search string.
      */
     const COMPARISON_START_WITH = 9;
 
     /**
-     * Does not start with an expression.
+     * Checks if the value does not start with the search string.
      */
     const COMPARISON_NO_START_WITH = 10;
 
     /**
-     * Contains an expression.
+     * Checks if the value includes the search string.
      */
     const COMPARISON_CONTAIN = 11;
 
     /**
-     * Does not contain an expression.
+     * Checks if the value does not include the search string.
      */
     const COMPARISON_NOT_CONTAIN = 12;
 
     /**
-     * Ends expression.
+     * Checks if the value ends with the search string.
      */
     const COMPARISON_END_WITH = 13;
 
     /**
-     * Does not end with an expression.
+     * Checks if the value does not end with the search string.
      */
     const COMPARISON_NO_END_WITH = 14;
 
     /**
-     * More.
+     * Exists according to the given condition.
      */
-    //const COMPARISON_GREATER = -1;
+    const COMPARISON_EXISTS = 15;
 
     /**
-     * More or equal.
+     * Does not exist according to the given condition.
      */
-    //const COMPARISON_GREATER_OR_EQUAL = -1;
-
-    /**
-     * Less.
-     */
-    //const COMPARISON_LESS = -1;
-
-    /**
-     * Less or equal.
-     */
-    //const COMPARISON_LESS_OR_EQUAL = -1;
-
-
+    const COMPARISON_NOT_EXISTS = 16;
 
     /**
      * List of supported fields.
@@ -165,7 +183,7 @@ class ColumnFilter extends StorageArray
             'ComparisonType' => $this->getComparisonType(),
         ];
         switch ($this->getFilterType()) {
-            case self::FILTER_COMPARE_FILTER:
+            case self::FILTER_COMPARE:
                 $data['LeftExpression'] = $this->getColumnExpressions()[0]->toArray();
                 $data['RightExpression'] = $this->getColumnExpressions()[1]->toArray();
                 break;
@@ -198,13 +216,10 @@ class ColumnFilter extends StorageArray
      */
     private function checkFilterType()
     {
-        if (!in_array(
-            $this->getFilterType(),
-            [
-                self::FILTER_COMPARE_FILTER,
-                self::FILTER_BETWEEN
-            ]
-        )) {
+        if (
+            ($this->getFilterType() < self::FILTER_NONE) ||
+            ($this->getFilterType() > self::FILTER_FILTER_GROUP)
+        ) {
             throw new ValidateException('Invalid filter.');
         }
     }
@@ -216,13 +231,10 @@ class ColumnFilter extends StorageArray
      */
     private function checkComparisonType()
     {
-        if (!in_array(
-            $this->getComparisonType(),
-            [
-                self::COMPARISON_EQUAL,
-                self::COMPARISON_BETWEEN
-            ]
-        )) {
+        if (
+            ($this->getComparisonType() < self::COMPARISON_BETWEEN) ||
+            ($this->getComparisonType() > self::COMPARISON_NOT_EXISTS)
+        ) {
             throw new ValidateException('Invalid filter compare arguments.');
         }
     }
@@ -235,7 +247,7 @@ class ColumnFilter extends StorageArray
     private function checkCompareColumnExpressions()
     {
         if (
-            (self::FILTER_COMPARE_FILTER == $this->getFilterType()) &&
+            (self::FILTER_BETWEEN != $this->getFilterType()) &&
             (2 != count($this->getColumnExpressions()))
         ) {
             throw new ValidateException('Invalid filter_compare count column expressions.');

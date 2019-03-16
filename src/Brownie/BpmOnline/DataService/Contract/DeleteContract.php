@@ -21,9 +21,9 @@ class DeleteContract extends Contract
     /**
      * Column filter.
      *
-     * @var ColumnFilter
+     * @var ColumnFilter[]
      */
-    private $filter;
+    private $filters = [];
 
     /**
      * Sets the input values.
@@ -48,8 +48,18 @@ class DeleteContract extends Contract
      */
     public function addFilter(ColumnFilter $columnFilter)
     {
-        $this->filter = $columnFilter;
+        $this->filters[] = $columnFilter;
         return $this;
+    }
+
+    /**
+     * Returns filters.
+     *
+     * @return ColumnFilter[]
+     */
+    private function getFilters()
+    {
+        return $this->filters;
     }
 
     /**
@@ -59,15 +69,22 @@ class DeleteContract extends Contract
      */
     public function toArray()
     {
-        $filter = [];
-        if (!empty($this->filter)) {
-            $filter = $this->filter->toArray();
-        }
-        return [
+        $data = [
             'RootSchemaName' => $this->getRootSchemaName(),
             'OperationType' => $this->getOperationType(),
-            'Filters' => $filter,
         ];
+
+        $items = [];
+        foreach ($this->getFilters() as $key => $filter) {
+            $items['index_' . $key] = $filter->toArray();
+        }
+
+        $data['Filters'] = [
+            'FilterType' => ColumnFilter::FILTER_FILTER_GROUP,
+            'Items' => $items
+        ];
+
+        return $data;
     }
 
     /**
@@ -77,10 +94,12 @@ class DeleteContract extends Contract
      */
     public function validate()
     {
-        if ((3 != $this->getOperationType()) || empty($this->filter)) {
+        if ((3 != $this->getOperationType()) || empty($this->getFilters())) {
             throw new ValidateException('Invalid contract arguments.');
         }
-        $this->filter->validate();
+        foreach ($this->getFilters() as $filter) {
+            $filter->validate();
+        }
     }
 
     /**

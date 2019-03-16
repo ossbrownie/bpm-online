@@ -27,7 +27,7 @@ class ColumnFilterTest extends TestCase
     public function testToArrayCompareFilter()
     {
         $this->columnFilter = new ColumnFilter(
-            ColumnFilter::FILTER_COMPARE_FILTER,
+            ColumnFilter::FILTER_COMPARE,
             ColumnFilter::COMPARISON_EQUAL,
             $this->createColumnExpression('key1', 'value1'),
             $this->createColumnExpression('key2', 'value2')
@@ -88,7 +88,7 @@ class ColumnFilterTest extends TestCase
     public function testValidatExceptionComapreColumnFilter()
     {
         $this->columnFilter = new ColumnFilter(
-            ColumnFilter::FILTER_COMPARE_FILTER,
+            ColumnFilter::FILTER_COMPARE,
             ColumnFilter::COMPARISON_EQUAL
         );
         $this->columnFilter->validate();

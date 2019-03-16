@@ -62,6 +62,23 @@ class SelectContractTest extends TestCase
         $this->assertNull($this->selectContract->validate());
     }
 
+    public function testValidateFilters()
+    {
+        $columnFilter = $this->prophesize(ColumnFilter::class);
+        $columnFilterMethodToArray = new MethodProphecy(
+            $columnFilter,
+            'validate',
+            []
+        );
+        $columnFilter
+            ->addMethodProphecy(
+                $columnFilterMethodToArray->willReturn(null)
+            );
+
+        $this->selectContract->addFilter($columnFilter->reveal());
+        $this->assertNull($this->selectContract->validate());
+    }
+
     public function testSetGetAllColumns()
     {
         $this->assertFalse($this->selectContract->toArray()['AllColumns']);
@@ -139,7 +156,10 @@ class SelectContractTest extends TestCase
         $this->assertInstanceOf(SelectContract::class, $selectContract);
 
         $this->assertEquals([
-            'test' => 'Ok'
+            'FilterType' => 6,
+            'Items' => [
+                'index_0' => ['test' => 'Ok'],
+            ]
         ], $this->selectContract->toArray()['Filters']);
     }
 

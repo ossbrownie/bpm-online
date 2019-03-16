@@ -45,7 +45,7 @@ class Contract extends StorageArray
     /**
      * Type of operation with record BATCH for group queries.
      */
-    //const BATCH = 4;
+    const BATCH = 4;
 
     /**
      * The endpoint for the SELECT operation.
@@ -70,7 +70,7 @@ class Contract extends StorageArray
     /**
      * The endpoint for the BATCH operation.
      */
-    //const BATCH_QUERY = 'BatchQuery';
+    const BATCH_QUERY = 'BatchQuery';
 
     /**
      * List of supported fields.

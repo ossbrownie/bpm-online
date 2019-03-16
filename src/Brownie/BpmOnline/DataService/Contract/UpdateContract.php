@@ -28,11 +28,11 @@ class UpdateContract extends Contract
     private $dictionary = [];
 
     /**
-     * Column filter.
+     * Column filters.
      *
-     * @var ColumnFilter
+     * @var ColumnFilter[]
      */
-    private $filter = null;
+    private $filters = [];
 
     /**
      * Sets the input values.
@@ -71,8 +71,18 @@ class UpdateContract extends Contract
      */
     public function addFilter(ColumnFilter $columnFilter)
     {
-        $this->filter = $columnFilter;
+        $this->filters[] = $columnFilter;
         return $this;
+    }
+
+    /**
+     * Returns filters.
+     *
+     * @return ColumnFilter[]
+     */
+    private function getFilters()
+    {
+        return $this->filters;
     }
 
     /**
@@ -89,19 +99,28 @@ class UpdateContract extends Contract
         foreach ($this->dictionary as $keyName => $columnExpression) {
             $dictionary[$keyName] = $columnExpression->toArray();
         }
-        $filter = [];
-        if (!empty($this->filter)) {
-            $filter = $this->filter->toArray();
-        }
-        return [
+
+        $data = [
             'RootSchemaName' => $this->getRootSchemaName(),
             'OperationType' => $this->getOperationType(),
             'IsForceUpdate' => false,
             'ColumnValues' => [
                 'Items' => $dictionary
             ],
-            'Filters' => $filter
         ];
+
+        if (!empty($this->getFilters())) {
+            $items = [];
+            foreach ($this->getFilters() as $key => $filter) {
+                $items['index_' . $key] = $filter->toArray();
+            }
+            $data['Filters'] = [
+                'FilterType' => ColumnFilter::FILTER_FILTER_GROUP,
+                'Items' => $items
+            ];
+        }
+
+        return $data;
     }
 
     /**
@@ -111,10 +130,12 @@ class UpdateContract extends Contract
      */
     public function validate()
     {
-        if ((2 != $this->getOperationType()) || empty($this->filter)) {
+        if ((2 != $this->getOperationType()) || empty($this->getFilters())) {
             throw new ValidateException('Invalid contract arguments.');
         }
-        $this->filter->validate();
+        foreach ($this->getFilters() as $filter) {
+            $filter->validate();
+        }
     }
 
     /**

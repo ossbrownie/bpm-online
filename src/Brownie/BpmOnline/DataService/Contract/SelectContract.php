@@ -40,11 +40,11 @@ class SelectContract extends Contract
     private $columns = [];
 
     /**
-     * Column filter.
+     * Column filters.
      *
-     * @var ColumnFilter
+     * @var ColumnFilter[]
      */
-    private $filter = null;
+    private $filters = [];
 
     /**
      * List of supported fields.
@@ -155,8 +155,18 @@ class SelectContract extends Contract
      */
     public function addFilter(ColumnFilter $columnFilter)
     {
-        $this->filter = $columnFilter;
+        $this->filters[] = $columnFilter;
         return $this;
+    }
+
+    /**
+     * Returns filters.
+     *
+     * @return ColumnFilter[]
+     */
+    private function getFilters()
+    {
+        return $this->filters;
     }
 
     /**
@@ -200,8 +210,15 @@ class SelectContract extends Contract
             //'HierarchicalColumnValue' => '',
 
         ];
-        if (!empty($this->filter)) {
-            $data['Filters'] = $this->filter->toArray();
+        if (!empty($this->getFilters())) {
+            $items = [];
+            foreach ($this->getFilters() as $key => $filter) {
+                $items['index_' . $key] = $filter->toArray();
+            }
+            $data['Filters'] = [
+                'FilterType' => ColumnFilter::FILTER_FILTER_GROUP,
+                'Items' => $items
+            ];
         }
         return $data;
     }
@@ -215,6 +232,9 @@ class SelectContract extends Contract
     {
         if (0 != $this->getOperationType()) {
             throw new ValidateException('Invalid contract arguments.');
+        }
+        foreach ($this->getFilters() as $filter) {
+            $filter->validate();
         }
     }
 
