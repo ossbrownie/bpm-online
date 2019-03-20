@@ -32,18 +32,19 @@ Add a line to your "require" section in your composer configuration:
 ```json
 {
     "require": {
-        "ossbrownie/bpm-online": "0.0.3"
+        "ossbrownie/bpm-online": "0.0.4"
     }
 }
 ```
 
 
 ## Documentation
-- [InsertQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-InsertQuery) - Data Contract InsertQuery.
-- [SelectQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-SelectQuery) - Data Contract SelectQuery.
-- [UpdateQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-UpdateQuery) - Data Contract UpdateQuery.
-- [DeleteQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) - Data Contract DeleteQuery.
-- [BatchQuery](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-BatchQuery) - Data Contract BatchQuery.
+- [InsertContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-InsertQuery) - Data Contract InsertQuery.
+- [SelectContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-SelectQuery) - Data Contract SelectQuery.
+- [UpdateContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-UpdateQuery) - Data Contract UpdateQuery.
+- [DeleteContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) - Data Contract DeleteQuery.
+- [BatchContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-BatchQuery) - Data Contract BatchQuery.
+- [DateTime](https://github.com/ossbrownie/bpm-online/wiki/DateTime) - Bpm'online DateTime.
 
 
 ## Tests

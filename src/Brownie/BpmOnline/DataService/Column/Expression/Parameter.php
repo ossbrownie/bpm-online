@@ -129,6 +129,9 @@ class Parameter extends Expression
      */
     public function __construct($value, $valueType = self::TEXT)
     {
+        if (is_object($value) && (method_exists($value, '__toString'))) {
+            $value = $value->__toString();
+        }
         parent::__construct([
             'dataValueType' => $valueType,
             'value' => $value,

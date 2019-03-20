@@ -3,7 +3,9 @@
 namespace Test\Brownie\BpmOnline\DataService\Column\Expression;
 
 use Brownie\BpmOnline\DataService\Column\Expression\Parameter;
+use Brownie\BpmOnline\Util\DateTime;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\MethodProphecy;
 
 class ParameterTest extends TestCase
 {
@@ -36,6 +38,27 @@ class ParameterTest extends TestCase
             'DataValueType' => 1,
             'Value' => 'TestString'
         ], $this->parameter->getValue());
+    }
+
+    public function testSetGetValueDateTime()
+    {
+        $dateTime = $this->prophesize(DateTime::class);
+        $dateTimeMethodToString = new MethodProphecy(
+            $dateTime,
+            '__toString',
+            []
+        );
+        $dateTime
+            ->addMethodProphecy(
+                $dateTimeMethodToString->willReturn('"2019-01-15T10:30:20+00:00"')
+            );
+        $this->parameter = new Parameter($dateTime->reveal(), Parameter::DATE);
+        $this->assertEquals([
+            'dataValueType' => 8,
+            'value' => '"2019-01-15T10:30:20+00:00"',
+            'arrayValue' => [],
+            'shouldSkipConvertion' => false
+        ], $this->parameter->toArray());
     }
 
     public function testArrayValue()
