@@ -14,9 +14,9 @@ class DateTime
 {
 
     /**
-     * Time in queries.
+     * Timestamp in queries.
      *
-     * @var int|string  $dateTime
+     * @var int  $dateTime
      */
     private $dateTime;
 
