@@ -27,7 +27,7 @@ class DateTime
      */
     public function __construct($dateTime = null)
     {
-        if (is_null($dateTime)) {
+        if (empty($dateTime)) {
             $dateTime = time();
         }
         $this->dateTime = $dateTime;
