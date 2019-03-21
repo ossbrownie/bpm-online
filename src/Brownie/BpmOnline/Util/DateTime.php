@@ -23,7 +23,7 @@ class DateTime
     /**
      * Sets the input values.
      *
-     * @param null|int|string   $dateTime   Time in queries.
+     * @param mixed   $dateTime   Time in queries.
      */
     public function __construct($dateTime = null)
     {
