@@ -58,7 +58,7 @@ class BpmOnlineTest extends TestCase
         $httpClientMethodRequest = new MethodProphecy(
             $httpClient,
             'request',
-            [$request]
+            [$request, Argument::any(), Argument::any()]
         );
 
         $httpClient

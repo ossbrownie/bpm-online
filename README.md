@@ -23,7 +23,7 @@ A basic CURL wrapper for PHP (see [http://php.net/curl](http://php.net/curl) for
 - **PHP** = >= 7.0
 - **EXT-CURL** = *
 - **EXT-JSON** = *
-- **ossbrownie/http-client** = 0.0.6
+- **ossbrownie/http-client** = 0.0.7
 - **ossbrownie/util** = 0.0.5
 
 
@@ -32,7 +32,7 @@ Add a line to your "require" section in your composer configuration:
 ```json
 {
     "require": {
-        "ossbrownie/bpm-online": "0.0.4"
+        "ossbrownie/bpm-online": "0.0.5"
     }
 }
 ```
@@ -51,7 +51,7 @@ Add a line to your "require" section in your composer configuration:
 To run the test suite, you need install the dependencies via composer, then run PHPUnit.
 ```bash
 $> composer.phar install
-$> ./vendor/bin/phpunit --colors=always --bootstrap ./tests/bootstrap.php ./tests
+$> ./vendor/bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 ```
 
 

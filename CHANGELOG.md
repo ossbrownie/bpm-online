@@ -1,6 +1,10 @@
 # Change Log
 
-# dev-master (2019-03-20)
+# dev-master (2019-03-22)
+
+# 0.0.5 (2019-03-22)
+- Updated composer.json
+- Added up to 3 request attempts if http code 200,500 is not received.
 
 # 0.0.4 (2019-03-20)
 

@@ -127,6 +127,7 @@ class BpmOnline extends StorageArray
      * Returns the response from the execution of the contract.
      *
      * @param Contract  $contract    DataService contract.
+     * @param int       $attempts    Number of request retries.
      *
      * @return Response
      *
@@ -136,7 +137,7 @@ class BpmOnline extends StorageArray
      * @throws HttpCodeException
      * @throws ValidateException
      */
-    public function getResponse(Contract $contract)
+    public function getResponse(Contract $contract, $attempts = 3)
     {
         $contract->validate();
         if (empty($this->getAuthentication())) {
@@ -164,7 +165,7 @@ class BpmOnline extends StorageArray
                     ->createHeader('BPMCSRF', $this->getAuthentication()['bpmcsrf']->getValue())
             );
 
-        $response = $this->getHttpClient()->request($request);
+        $response = $this->getHttpClient()->request($request, $attempts, [200, 500]);
         $contractResponse = $contract->getResponse($response->getBody());
 
         if (200 != $response->getHttpCode()) {
