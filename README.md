@@ -32,7 +32,7 @@ Add a line to your "require" section in your composer configuration:
 ```json
 {
     "require": {
-        "ossbrownie/bpm-online": "0.0.5"
+        "ossbrownie/bpm-online": "0.0.6"
     }
 }
 ```

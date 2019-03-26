@@ -100,4 +100,20 @@ class BatchContractTest extends TestCase
             $this->batchContract->getResponse('{}')
         );
     }
+
+    public function testCount()
+    {
+        $insertContract1 = $this->prophesize(InsertContract::class);
+        $this->assertInstanceOf(
+            BatchContract::class,
+            $this->batchContract->addContract($insertContract1->reveal())
+        );
+        $insertContract2 = $this->prophesize(InsertContract::class);
+        $this->assertInstanceOf(
+            BatchContract::class,
+            $this->batchContract->addContract($insertContract2->reveal())
+        );
+        $this->assertEquals(2, $this->batchContract->count());
+        $this->assertNull($this->batchContract->validate());
+    }
 }

@@ -1,8 +1,13 @@
 # Change Log
 
-# dev-master (2019-03-22)
+# dev-master (2019-03-25)
+
+# 0.0.6 (2019-03-25)
+
+- Added a batch request method to get the number of added contracts.
 
 # 0.0.5 (2019-03-22)
+
 - Updated composer.json
 - Added up to 3 request attempts if http code 200,500 is not received.
 

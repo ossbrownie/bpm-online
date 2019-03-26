@@ -51,6 +51,16 @@ class BatchContract extends Contract
     }
 
     /**
+     * Returns the number of added contracts.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->contracts);
+    }
+
+    /**
      * Returns contracts.
      *
      * @return Contract[]
