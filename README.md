@@ -32,7 +32,7 @@ Add a line to your "require" section in your composer configuration:
 ```json
 {
     "require": {
-        "ossbrownie/bpm-online": "0.0.6"
+        "ossbrownie/bpm-online": "0.0.7"
     }
 }
 ```
@@ -45,6 +45,7 @@ Add a line to your "require" section in your composer configuration:
 - [DeleteContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) - Data Contract DeleteQuery.
 - [BatchContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-BatchQuery) - Data Contract BatchQuery.
 - [DateTime](https://github.com/ossbrownie/bpm-online/wiki/DateTime) - Bpm'online DateTime.
+- [Filters](https://github.com/ossbrownie/bpm-online/wiki/Filters) - Filters.
 
 
 ## Tests

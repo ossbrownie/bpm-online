@@ -10,7 +10,7 @@ namespace Brownie\BpmOnline\DataService\Column;
 /**
  * An expression defining a column type.
  */
-class ColumnExpression
+class ColumnExpression implements Column
 {
 
     /**
@@ -27,7 +27,31 @@ class ColumnExpression
      */
     public function __construct(Expression $_ = null)
     {
-        $this->expressions = func_get_args();
+        $this->setExpressions(func_get_args());
+    }
+
+    /**
+     * Sets collection of expressions.
+     * Returns the current object.
+     *
+     * @param array     $expressions    Collection of expressions.
+     *
+     * @return self
+     */
+    private function setExpressions(array $expressions)
+    {
+        $this->expressions = $expressions;
+        return $this;
+    }
+
+    /**
+     * Gets collection of expressions.
+     *
+     * @return Expression[]
+     */
+    private function getExpressions()
+    {
+        return $this->expressions;
     }
 
     /**
@@ -38,7 +62,7 @@ class ColumnExpression
     public function toArray()
     {
         $expressions = [];
-        foreach ($this->expressions as $expression) {
+        foreach ($this->getExpressions() as $expression) {
             $expressions[$expression->getKeyName()] = $expression->getValue();
         }
         return $expressions;

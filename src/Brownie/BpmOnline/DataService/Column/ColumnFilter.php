@@ -158,11 +158,11 @@ class ColumnFilter extends StorageArray
     /**
      * Sets the input values.
      *
-     * @param int                       $filterType         Filter type.
-     * @param int                       $comparisonType     Comparison Type.
-     * @param ColumnExpression|null     $_                  Column expressions.
+     * @param int           $filterType         Filter type.
+     * @param int           $comparisonType     Comparison Type.
+     * @param Column|null   $_                  Column expressions.
      */
-    public function __construct($filterType, $comparisonType, ColumnExpression $_ = null)
+    public function __construct($filterType, $comparisonType, Column $_ = null)
     {
         parent::__construct([
             'filterType' => $filterType,
@@ -183,6 +183,10 @@ class ColumnFilter extends StorageArray
             'ComparisonType' => $this->getComparisonType(),
         ];
         switch ($this->getFilterType()) {
+            case self::FILTER_IN:
+                $data['LeftExpression'] = $this->getColumnExpressions()[0]->toArray();
+                $data['RightExpressions'] = $this->getColumnExpressions()[1]->toArray();
+                break;
             case self::FILTER_COMPARE:
                 $data['LeftExpression'] = $this->getColumnExpressions()[0]->toArray();
                 $data['RightExpression'] = $this->getColumnExpressions()[1]->toArray();

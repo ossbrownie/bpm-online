@@ -3,6 +3,7 @@
 namespace Test\Brownie\BpmOnline\DataService\Column;
 
 use Brownie\BpmOnline\DataService\Column\ColumnExpression;
+use Brownie\BpmOnline\DataService\Column\ColumnExpressionCollection;
 use Brownie\BpmOnline\DataService\Column\ColumnFilter;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\MethodProphecy;
@@ -34,8 +35,8 @@ class ColumnFilterTest extends TestCase
         );
 
         $this->assertEquals([
-            'FilterType' => 1,
-            'ComparisonType' => 3,
+            'FilterType' => ColumnFilter::FILTER_COMPARE,
+            'ComparisonType' => ColumnFilter::COMPARISON_EQUAL,
             'LeftExpression' => [
                 'key1' => 'value1',
             ],
@@ -56,8 +57,8 @@ class ColumnFilterTest extends TestCase
         );
 
         $this->assertEquals([
-            'FilterType' => 3,
-            'ComparisonType' => 0,
+            'FilterType' => ColumnFilter::FILTER_BETWEEN,
+            'ComparisonType' => ColumnFilter::COMPARISON_BETWEEN,
             'LeftExpression' => [
                 'key1' => 'value1',
             ],
@@ -66,6 +67,42 @@ class ColumnFilterTest extends TestCase
             ],
             'RightGreaterExpression' => [
                 'key3' => 'value3',
+            ],
+        ], $this->columnFilter->toArray());
+    }
+
+    public function testToArrayFilterIn()
+    {
+        $columnExpressionCollection = $this->prophesize(ColumnExpressionCollection::class);
+        $columnExpressionCollectionMethodToArray = new MethodProphecy(
+            $columnExpressionCollection,
+            'toArray',
+            []
+        );
+        $columnExpressionCollection
+            ->addMethodProphecy(
+                $columnExpressionCollectionMethodToArray->willReturn([
+                    'test01' => 'value01',
+                    'test02' => 'value02',
+                ])
+            );
+
+        $this->columnFilter = new ColumnFilter(
+            ColumnFilter::FILTER_IN,
+            ColumnFilter::COMPARISON_EQUAL,
+            $this->createColumnExpression('key1', 'value1'),
+            $columnExpressionCollection->reveal()
+        );
+
+        $this->assertEquals([
+            'FilterType' => ColumnFilter::FILTER_IN,
+            'ComparisonType' => ColumnFilter::COMPARISON_EQUAL,
+            'LeftExpression' => [
+                'key1' => 'value1',
+            ],
+            'RightExpressions' => [
+                'test01' => 'value01',
+                'test02' => 'value02',
             ],
         ], $this->columnFilter->toArray());
     }

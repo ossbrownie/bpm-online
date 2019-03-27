@@ -1,6 +1,11 @@
 # Change Log
 
-# dev-master (2019-03-25)
+# dev-master (2019-03-27)
+
+# 0.0.7 (2019-03-27)
+
+- Customized work with the filter IN.
+- Added class Brownie\BpmOnline\DataService\Column\ColumnExpressionCollection and unitTest for it.
 
 # 0.0.6 (2019-03-25)
 
