@@ -15,16 +15,20 @@ Bpm’online
 
 API access to a single marketing management platform 'CRM-system bpm’online' >= 7.10
 
-## curl
-A basic CURL wrapper for PHP (see [http://php.net/curl](http://php.net/curl) for more information about the libcurl extension for PHP)
-
-
 ## Requirements
 - **PHP** = >= 7.0
 - **EXT-CURL** = *
 - **EXT-JSON** = *
 - **ossbrownie/http-client** = 0.0.7
 - **ossbrownie/util** = 0.0.5
+
+For more information about the extensions see:
+
+#### curl
+[https://www.php.net/curl](https://www.php.net/curl)
+
+#### json
+[https://www.php.net/json](https://www.php.net/json)
 
 
 ## Installation
@@ -39,13 +43,13 @@ Add a line to your "require" section in your composer configuration:
 
 
 ## Documentation
-- [InsertContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-InsertQuery) - Data Contract InsertQuery.
-- [SelectContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-SelectQuery) - Data Contract SelectQuery.
-- [UpdateContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-UpdateQuery) - Data Contract UpdateQuery.
-- [DeleteContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) - Data Contract DeleteQuery.
-- [BatchContract](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-BatchQuery) - Data Contract BatchQuery.
-- [DateTime](https://github.com/ossbrownie/bpm-online/wiki/DateTime) - Bpm'online DateTime.
-- [Filters](https://github.com/ossbrownie/bpm-online/wiki/Filters) - Filters.
+- [DataService Contract InsertQuery.](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-InsertQuery) 
+- [DataService Contract SelectQuery.](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-SelectQuery) 
+- [DataService Contract UpdateQuery.](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-UpdateQuery) 
+- [DataService Contract DeleteQuery.](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-DeleteQuery) 
+- [DataService Contract BatchQuery.](https://github.com/ossbrownie/bpm-online/wiki/Data-Contract-BatchQuery) 
+- [DataService DateTime.](https://github.com/ossbrownie/bpm-online/wiki/DateTime) 
+- [DataService Filters.](https://github.com/ossbrownie/bpm-online/wiki/Filters)
 
 
 ## Tests
