@@ -24,11 +24,8 @@ API access to a single marketing management platform 'CRM-system bpm’online' >
 
 For more information about the extensions see:
 
-#### curl
-[https://www.php.net/curl](https://www.php.net/curl)
-
-#### json
-[https://www.php.net/json](https://www.php.net/json)
+**curl** - [https://www.php.net/curl](https://www.php.net/curl)
+**json** - [https://www.php.net/json](https://www.php.net/json)
 
 
 ## Installation
