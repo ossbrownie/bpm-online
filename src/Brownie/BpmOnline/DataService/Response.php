@@ -63,6 +63,9 @@ class Response extends StorageArray
                 'Invalid response: ' . substr($this->getRawResponse(), 0, 30) . '...'
             );
         }
+        if (isset($jsonResponse['ResponseStatus'])) {
+            $jsonResponse['responseStatus'] = $jsonResponse['ResponseStatus'];
+        }
         $this->setJsonResponse($jsonResponse);
     }
 

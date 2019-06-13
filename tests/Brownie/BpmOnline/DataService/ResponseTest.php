@@ -49,4 +49,12 @@ class ResponseTest extends TestCase
         $this->assertEquals('Test message', $this->response->getErrorMessage());
     }
 
+    public function testGettersResponseStrToUpper()
+    {
+        $this->response = new Response('{"rowsAffected":"5","nextPrcElReady":false,"success":true,"ResponseStatus":{"Message":"Test message"}}');
+        $this->assertEquals(5, $this->response->getRowsAffected());
+        $this->assertFalse($this->response->getNextPrcElReady());
+        $this->assertTrue($this->response->getSuccess());
+        $this->assertEquals('Test message', $this->response->getErrorMessage());
+    }
 }

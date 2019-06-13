@@ -1,7 +1,12 @@
 # Change Log
 
-## dev-master (2019-04-08)
+## dev-master (2019-06-12)
+
+## 0.0.8 (2019-06-12)
+
 - Updated CHANGELOG.md and README.md.
+- Fixed key case in differents ResponseStatus.
+- Changed unit tests.
 
 ## 0.0.7 (2019-03-27)
 
